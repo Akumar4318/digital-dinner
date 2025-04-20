@@ -19,6 +19,12 @@ app.use(
         credentials:true,
     })
 )
+app.use((req, res, next) => {
+    res.setHeader("Content-Security-Policy", 
+      "default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com;"
+    );
+    next();
+  });
 app.use(bodyParser.json());
 app.use('/api/v1',itemRoutes)
 app.use('/api/v1',categoryRoutes)
@@ -36,3 +42,8 @@ connectDB()
     })
 })
 
+
+app.get('/',(req,res)=>{
+
+    res.send('your server is created ')
+})
